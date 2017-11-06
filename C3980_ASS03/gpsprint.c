@@ -9,12 +9,12 @@ void PrintGpsData( struct gps_data_t* gpsdata)
     }
     else
     {
-        printf("n/a\n");
+        printf("n/a ");
     }
 
     if(gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.longitude) == 0)
     {
-        printf(" Longitude: %f%c", gpsdata->fix.longitude, (gpsdata->fix.longitude < 0)? 'E': 'W');
+        printf(" Longitude: %f%c\n", gpsdata->fix.longitude, (gpsdata->fix.longitude < 0)? 'W': 'E');
     }
     else
     {
@@ -27,8 +27,8 @@ void PrintGpsData( struct gps_data_t* gpsdata)
         {
             if(i < gpsdata->satellites_visible)
             {
-                printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02d\n",
-                gpsdata->skyview[i].PRN,gpsdata->skyview[i].azimuth, gpsdata->skyview[i].ss);
+                printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02f\n",
+                gpsdata->skyview[i].PRN,gpsdata->skyview[i].elevation, gpsdata->skyview[i].azimuth, gpsdata->skyview[i].ss);
             }
         }
     }
