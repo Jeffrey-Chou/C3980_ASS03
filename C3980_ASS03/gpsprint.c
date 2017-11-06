@@ -1,5 +1,47 @@
+/*------------------------------------------------------------------------------
+--	Source File:	gpsprint.c
+--
+--	Program:        Wireless GPS Program
+--
+--	Functions:
+--					void PrintGpsData (struct gps_data_t* gpsdata)
+--
+--	Date:			Nov 2 2017
+--
+--	Designer:		Jeffrey Chou
+--
+--	Programmer:		Jeffrey Chou
+--
+--	Notes:
+--	The program is a location finding application that uses the gpsd utility 
+--  along with assocaited C service library.
+--
+--	This code is responsible for printing out data from the gps_data structure
+--  after if has been grabbed by the read function.
+--
+------------------------------------------------------------------------------*/
+
 #include "gpsprint.h"
 
+
+/*------------------------------------------------------------------------------
+--	Function:		InitWindow
+--
+--	Date:			Nov 2 2017
+--
+--	Designer:		Jeffrey Chou
+--
+--	Programmer:		Jeffrey Chou
+--
+--	Interface:		void PrintGpsData( struct gps_data_t* gpsdata)
+--						struct gps_data_t* gpsdata: a pointer to the data structure
+--
+--	Returns:		void
+--
+--	Notes:
+--	Prints out the data stored in the gps_data_t strucuture.
+--
+------------------------------------------------------------------------------*/
 void PrintGpsData( struct gps_data_t* gpsdata)
 {
     printf("Time:%f",gpsdata->fix.time);
