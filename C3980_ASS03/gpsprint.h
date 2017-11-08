@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <gps.h>
 #include <stdlib.h>
+#include <time.h>
 #include <math.h>
 
 #define MAX_POSSIBLE_SATS (MAXCHANNELS - 2)

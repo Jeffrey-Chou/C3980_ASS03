@@ -49,7 +49,10 @@ void PrintGpsData( struct gps_data_t* gpsdata)
 
     FillSatUsedList(usedList, gpsdata);
 
-    printf("Time:%f",gpsdata->fix.time);
+    struct tm time;
+    time = *localetime(&gpsdata->fix.time);
+
+    printf("%d-%d-%dT%d:%d:%d",time.tm_year, time.tm_month, time.tm_mday, time.tm_hour, time.tm_min, time.tm_sec);
     if(gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.latitude) == 0 && isnan(gpsdata->fix.longitude) == 0 )
     {
         printf(" Latitude: %f%c Longitude: %f%c\n", 
