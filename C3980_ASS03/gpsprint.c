@@ -45,9 +45,9 @@
 void PrintGpsData( struct gps_data_t* gpsdata)
 {
     bool hasFix = false;
-    //bool usedList[MAXCHANNELS];
+    bool usedList[MAXCHANNELS];
 
-    //FillSatUsedList(usedList, gpsdata);
+    FillSatUsedList(usedList, gpsdata);
     
     
     time_t t = (time_t) gpsdata->fix.time;
@@ -59,7 +59,7 @@ void PrintGpsData( struct gps_data_t* gpsdata)
         printf(" Latitude: %f%c Longitude: %f%c\n", 
         gpsdata->fix.latitude, (gpsdata->fix.latitude < 0)? 'S': 'N',
         gpsdata->fix.longitude, (gpsdata->fix.longitude < 0)? 'W': 'E');
-        hasFix = true;
+        hasFix = false;
     }
     else
     {
