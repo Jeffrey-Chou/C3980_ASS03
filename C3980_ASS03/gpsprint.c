@@ -45,9 +45,9 @@
 void PrintGpsData( struct gps_data_t* gpsdata)
 {
     bool hasFix = false;
-    bool usedList[MAXCHANNELS];
+    //bool usedList[MAXCHANNELS];
 
-    FillSatUsedList(usedList, gpsdata);
+    //FillSatUsedList(usedList, gpsdata);
     
     
     time_t t = (time_t) gpsdata->fix.time;
@@ -56,14 +56,14 @@ void PrintGpsData( struct gps_data_t* gpsdata)
     printf("\n%d-%d-%dT%d:%d:%d",time->tm_year + 1900, time->tm_mon, time->tm_mday, time->tm_hour, time->tm_min, time->tm_sec);
     if(gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.latitude) == 0 && isnan(gpsdata->fix.longitude) == 0 )
     {
-        printf(" Latitude: %f%c Longitude: %f%c\n", 
+        printf(" Latitude: %f%c Longitude: %f%c\n\n", 
         gpsdata->fix.latitude, (gpsdata->fix.latitude < 0)? 'S': 'N',
         gpsdata->fix.longitude, (gpsdata->fix.longitude < 0)? 'W': 'E');
         hasFix = false;
     }
     else
     {
-        printf(" Latitude: n/a Longitude: n/a\n");
+        printf(" Latitude: n/a Longitude: n/a\n\n");
     }
 
     if(gpsdata->satellites_visible != 0)
@@ -113,8 +113,8 @@ void FillSatUsedList( bool* usedList, struct gps_data_t* gpsdata)
 
 void PrintSatelliteDetails(struct satellite_t* skyview)
 {
-    printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02f Used: %c used is %d\n",
-    skyview->PRN, skyview->elevation, skyview->azimuth, skyview->ss, ((skyview->used)? 'Y': 'N'), skyview->used);
+    printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02d Used: %c\n",
+    skyview->PRN, skyview->elevation, skyview->azimuth, (int)skyview->ss, ((skyview->used)? 'Y': 'N'));
 
 }
 
