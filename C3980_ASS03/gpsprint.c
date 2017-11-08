@@ -47,7 +47,7 @@ void PrintGpsData( struct gps_data_t* gpsdata)
     bool hasFix = false;
     bool usedList[MAXCHANNELS];
 
-    FillSatUsedList(&usedList, gpsdata);
+    FillSatUsedList(usedList, gpsdata);
     time_t t = (time_t) gpsdata->fix.time;
     struct tm* time = localtime(&t);
 
@@ -75,6 +75,7 @@ void PrintGpsData( struct gps_data_t* gpsdata)
                     printf("entered if with boolean %d\n", usedList[i]);
                     if(usedList[i] == true)
                     {
+
                         PrintSatelliteDetails(&gpsdata->skyview[i], usedList[i]);
                     }
                 }
@@ -89,17 +90,18 @@ void PrintGpsData( struct gps_data_t* gpsdata)
     
 }
 
-void FillSatUsedList( bool** usedList, struct gps_data_t* gpsdata)
+void FillSatUsedList( bool* usedList, struct gps_data_t* gpsdata)
 {
 
     for(int i = 0; i < MAXCHANNELS; ++i)
     {
-        *usedList[i] = false;
+        usedList[i] = false;
         for(int j = 0; j < gpsdata->satellites_used; ++j)
         {
             if(gpsdata->skyview[j].used == gpsdata->skyview[i].PRN)
             {
-                *usedList[i] = true;
+                printf("added true to list\n");
+                usedList[i] = true;
             }
         }
     }
