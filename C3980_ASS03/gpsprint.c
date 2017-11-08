@@ -75,7 +75,6 @@ void PrintGpsData( struct gps_data_t* gpsdata)
                     printf("entered if with boolean %d\n", usedList[i]);
                     if(usedList[i] == true)
                     {
-                        printf("")
                         PrintSatelliteDetails(&gpsdata->skyview[i], usedList[i]);
                     }
                 }
