@@ -13,6 +13,6 @@ void PrintGpsData( struct gps_data_t* gpsdata);
 
 void FillSatUsedList (bool* usedList, struct gps_data_t* gpsdata);
 
-void PrintSatelliteDetails (struct satellite_t* skyview, bool used);
+void PrintSatelliteDetails (struct satellite_t* skyview);
 
 #endif

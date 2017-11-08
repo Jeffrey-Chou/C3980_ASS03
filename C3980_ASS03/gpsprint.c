@@ -44,17 +44,17 @@
 ------------------------------------------------------------------------------*/
 void PrintGpsData( struct gps_data_t* gpsdata)
 {
-    //bool hasFix = false;
-    bool usedList[MAXCHANNELS];
+    bool hasFix = false;
+    //bool usedList[MAXCHANNELS];
 
-    FillSatUsedList(usedList, gpsdata);
+    //FillSatUsedList(usedList, gpsdata);
 
     for(int i = 0; i < MAXCHANNELS; ++i)
     {
         printf("used %d is %d\n", i, usedList[i]);
     }
     
-    /*
+    
     time_t t = (time_t) gpsdata->fix.time;
     struct tm* time = localtime(&t);
 
@@ -80,20 +80,20 @@ void PrintGpsData( struct gps_data_t* gpsdata)
                 if(hasFix == true)
                 {
                     printf("entered if with boolean %d\n", usedList[i]);
-                    if(usedList[i] == true)
+                    if(gpsdata->skyview[i].used)
                     {
 
-                        PrintSatelliteDetails(&gpsdata->skyview[i], usedList[i]);
+                        PrintSatelliteDetails(&gpsdata->skyview[i]);
                     }
                 }
                 else
                 {
-                    PrintSatelliteDetails(&gpsdata->skyview[i], usedList[i]);
+                    PrintSatelliteDetails(&gpsdata->skyview[i]);
                 }
             }
         }
     }
-    */
+    
 
     
 }
@@ -118,7 +118,7 @@ void FillSatUsedList( bool* usedList, struct gps_data_t* gpsdata)
 void PrintSatelliteDetails(struct satellite_t* skyview, bool used)
 {
     printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02f Used: %c\n",
-    skyview->PRN, skyview->elevation, skyview->azimuth, skyview->ss, ((used == true)? 'Y': 'N'));
+    skyview->PRN, skyview->elevation, skyview->azimuth, skyview->ss, ((skyview->used == true)? 'Y': 'N'));
 
 }
 
