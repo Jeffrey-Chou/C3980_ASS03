@@ -8,9 +8,9 @@
 --
 --	Date:			Nov 2 2017
 --
---	Designer:		Jeffrey Chou
+--	Designer:		Alfred Swinton, Jeffrey Chou
 --
---	Programmer:		Jeffrey Chou
+--	Programmer:		Alfred Swinton
 --
 --	Notes:
 --	The program is a location finding application that uses the gpsd utility 
@@ -33,9 +33,9 @@
 --
 --	Date:			Nov 2 2017
 --
---	Designer:		Jeffrey Chou
+--	Designer:		Alfred Swinton, Jeffrey Chou
 --
---	Programmer:		Jeffrey Chou
+--	Programmer:		Alfred Swinton
 --
 --	Interface:		int main (void)
 --

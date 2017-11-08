@@ -1,16 +1,16 @@
 /*------------------------------------------------------------------------------
---	Source File:	gps-utils.c
+--	Source File:	  gps-utils.c
 --
 --	Program:        Wireless GPS Program
 --
 --	Functions:
---					int gps_search_sat (struct gps_data_t* gpsdata)
+--				      	  int gps_search_sat (struct gps_data_t* gpsdata)
 --
---	Date:			Nov 2 2017
+--	Date:		 	      Nov 2 2017
 --
---	Designer:		  Alfred Swinton
+--	Designer:		    Alfred Swinton
 --
---	Programmer:		Alfred Swinton
+--	Programmer:		  Alfred Swinton
 --
 --	Notes:
 --	The program is a location finding application that uses the gpsd utility 
@@ -26,9 +26,9 @@
 
 
 /*------------------------------------------------------------------------------
---	Function:		gps_search_sat
+--	Function:		  gps_search_sat
 --
---	Date:			Nov 2 2017
+--	Date:		    	Nov 2 2017
 --
 --	Designer:		  Alfred Swinton
 --
@@ -84,9 +84,9 @@ int gps_search_sat(struct gps_data_t* gpsdata)
 }
 
 /*------------------------------------------------------------------------------
---	Function:		cleanup
+--	Function:		  cleanup
 --
---	Date:			Nov 2 2017
+--	Date:			    Nov 2 2017
 --
 --	Designer:		  Alfred Swinton
 --
