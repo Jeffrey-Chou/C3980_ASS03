@@ -45,13 +45,13 @@
 void PrintGpsData( struct gps_data_t* gpsdata)
 {
     bool hasFix = false;
-    bool* usedList = 0;
+    bool usedList[MAXCHANNELS];
 
     FillSatUsedList(usedList, gpsdata);
     time_t t = (time_t) gpsdata->fix.time;
     struct tm* time = localtime(&t);
 
-    printf("%d-%d-%dT%d:%d:%d",time->tm_year + 1900, time->tm_mon, time->tm_mday, time->tm_hour, time->tm_min, time->tm_sec);
+    printf("\n%d-%d-%dT%d:%d:%d",time->tm_year + 1900, time->tm_mon, time->tm_mday, time->tm_hour, time->tm_min, time->tm_sec);
     if(gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.latitude) == 0 && isnan(gpsdata->fix.longitude) == 0 )
     {
         printf(" Latitude: %f%c Longitude: %f%c\n", 
@@ -70,10 +70,12 @@ void PrintGpsData( struct gps_data_t* gpsdata)
         {
             if(i < gpsdata->satellites_visible)
             {
-                if(hasFix)
+                if(hasFix == true)
                 {
-                    if(usedList[i])
+                    printf("entered if with boolean %d\n", usedList[i]);
+                    if(usedList[i] == true)
                     {
+                        printf("")
                         PrintSatelliteDetails(&gpsdata->skyview[i], usedList[i]);
                     }
                 }
@@ -85,18 +87,11 @@ void PrintGpsData( struct gps_data_t* gpsdata)
         }
     }
 
-    if(usedList != 0)
-    {
-      printf("freeing usedlist\n");
-        free(usedList);
-    }
-
     
 }
 
 void FillSatUsedList( bool* usedList, struct gps_data_t* gpsdata)
 {
-    usedList = malloc(sizeof(bool) * MAXCHANNELS);
 
     for(int i = 0; i < MAXCHANNELS; ++i)
     {
