@@ -112,7 +112,7 @@ void FillSatUsedList( bool* usedList, struct gps_data_t* gpsdata)
 void PrintSatelliteDetails(struct satellite_t* skyview)
 {
     printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02f Used: %c\n",
-    skyview->PRN, skyview->elevation, skyview->azimuth, skyview->ss, ((skyview->used == true)? 'Y': 'N'));
+    skyview->PRN, skyview->elevation, skyview->azimuth, skyview->ss, ((skyview->used)? 'Y': 'N'));
 
 }
 
