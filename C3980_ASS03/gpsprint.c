@@ -48,11 +48,10 @@ void PrintGpsData( struct gps_data_t* gpsdata)
     bool* usedList = 0;
 
     FillSatUsedList(usedList, gpsdata);
+    time_t t = (time_t) gpsdata->fix.time;
+    struct tm* time = localtime(&t);
 
-    struct tm time;
-    time = *localetime(&gpsdata->fix.time);
-
-    printf("%d-%d-%dT%d:%d:%d",time.tm_year, time.tm_month, time.tm_mday, time.tm_hour, time.tm_min, time.tm_sec);
+    printf("%d-%d-%dT%d:%d:%d",time->tm_year + 1900, time->tm_mon, time->tm_mday, time->tm_hour, time->tm_min, time->tm_sec);
     if(gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.latitude) == 0 && isnan(gpsdata->fix.longitude) == 0 )
     {
         printf(" Latitude: %f%c Longitude: %f%c\n", 
@@ -88,8 +87,10 @@ void PrintGpsData( struct gps_data_t* gpsdata)
 
     if(usedList != 0)
     {
+      printf("freeing usedlist\n");
         free(usedList);
     }
+
     
 }
 
