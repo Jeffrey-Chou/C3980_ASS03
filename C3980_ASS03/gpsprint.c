@@ -44,7 +44,7 @@
 ------------------------------------------------------------------------------*/
 void PrintGpsData( struct gps_data_t* gpsdata)
 {
-    bool hasFix = false;
+    //bool hasFix = false;
     bool usedList[MAXCHANNELS];
 
     FillSatUsedList(usedList, gpsdata);
