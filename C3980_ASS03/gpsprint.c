@@ -88,7 +88,7 @@ void PrintGpsData( struct gps_data_t* gpsdata)
         }
     }
 
-    gps_clear_fix(gpsdata);
+    gps_clear_fix(&gpsdata->fix);
     
 
     
