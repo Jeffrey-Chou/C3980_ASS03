@@ -1,5 +1,47 @@
+/*------------------------------------------------------------------------------
+--	Source File:	gpsprint.c
+--
+--	Program:        Wireless GPS Program
+--
+--	Functions:
+--					void PrintGpsData (struct gps_data_t* gpsdata)
+--
+--	Date:			Nov 2 2017
+--
+--	Designer:		Jeffrey Chou
+--
+--	Programmer:		Jeffrey Chou
+--
+--	Notes:
+--	The program is a location finding application that uses the gpsd utility 
+--  along with assocaited C service library.
+--
+--	The gpsprint code is responsible for printing out data from the gps_data structure
+--  after if has been grabbed by the read function.
+--
+------------------------------------------------------------------------------*/
+
 #include "gpsprint.h"
 
+
+/*------------------------------------------------------------------------------
+--	Function:		PrintGpsData
+--
+--	Date:			Nov 2 2017
+--
+--	Designer:		Jeffrey Chou
+--
+--	Programmer:		Jeffrey Chou
+--
+--	Interface:		void PrintGpsData( struct gps_data_t* gpsdata)
+--						struct gps_data_t* gpsdata: a pointer to the data structure
+--
+--	Returns:		void
+--
+--	Notes:
+--	Prints out the data stored in the gps_data_t strucuture.
+--
+------------------------------------------------------------------------------*/
 void PrintGpsData( struct gps_data_t* gpsdata)
 {
     bool hasFix = false;
@@ -17,7 +59,7 @@ void PrintGpsData( struct gps_data_t* gpsdata)
     }
     else
     {
-        printf("n/a n/a\n");
+        printf(" Latitude: n/a Longitude: n/a\n");
     }
 
     if(gpsdata->satellites_visible != 0)
@@ -68,7 +110,7 @@ void FillSatUsedList( bool* usedList, struct gps_data_t* gpsdata)
 void PrintSatelliteDetails(struct satellite_t* skyview, bool used)
 {
     printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02f Used: %c\n",
-    skyview->PRN,skyview->elevation, skyview->azimuth, skyview->ss, (used)? 'Y': 'N');
+    skyview->PRN,skyview->elevation, skyview->azimuth, skyview->ss, ((used)? 'Y': 'N'));
 
 }
 
