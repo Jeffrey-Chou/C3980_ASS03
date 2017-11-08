@@ -16,7 +16,7 @@
 --	The program is a location finding application that uses the gpsd utility 
 --  along with assocaited C service library.
 --
---	This code is responsible for printing out data from the gps_data structure
+--	The gpsprint code is responsible for printing out data from the gps_data structure
 --  after if has been grabbed by the read function.
 --
 ------------------------------------------------------------------------------*/
@@ -25,7 +25,7 @@
 
 
 /*------------------------------------------------------------------------------
---	Function:		InitWindow
+--	Function:		PrintGpsData
 --
 --	Date:			Nov 2 2017
 --
@@ -44,37 +44,78 @@
 ------------------------------------------------------------------------------*/
 void PrintGpsData( struct gps_data_t* gpsdata)
 {
-    printf("Time:%f",gpsdata->fix.time);
-    if(gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.latitude) == 0)
+    bool hasFix = false;
+    //bool usedList[MAXCHANNELS];
+
+    //FillSatUsedList(usedList, gpsdata);
+    
+    
+    time_t t = (time_t) gpsdata->fix.time;
+    struct tm* time = localtime(&t);
+
+    printf("\n%d-%d-%dT%d:%d:%d",time->tm_year + 1900, time->tm_mon, time->tm_mday, time->tm_hour, time->tm_min, time->tm_sec);
+    if(gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.latitude) == 0 && isnan(gpsdata->fix.longitude) == 0 )
     {
-        printf(" Latitude: %f%c", gpsdata->fix.latitude, (gpsdata->fix.latitude < 0)? 'S': 'N');
+        printf(" Latitude: %f%c Longitude: %f%c\n\n", 
+        gpsdata->fix.latitude, (gpsdata->fix.latitude < 0)? 'S': 'N',
+        gpsdata->fix.longitude, (gpsdata->fix.longitude < 0)? 'W': 'E');
+        hasFix = false;
     }
     else
     {
-        printf("n/a ");
+        printf(" Latitude: n/a Longitude: n/a\n\n");
     }
 
-    if(gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.longitude) == 0)
-    {
-        printf(" Longitude: %f%c\n", gpsdata->fix.longitude, (gpsdata->fix.longitude < 0)? 'W': 'E');
-    }
-    else
-    {
-        printf("n/a\n");
-    }
-    
     if(gpsdata->satellites_visible != 0)
     {
         for(int i = 0; i < MAX_POSSIBLE_SATS; ++i )
         {
             if(i < gpsdata->satellites_visible)
             {
-                printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02f\n",
-                gpsdata->skyview[i].PRN,gpsdata->skyview[i].elevation, gpsdata->skyview[i].azimuth, gpsdata->skyview[i].ss);
+                if(hasFix == true)
+                {
+                    if(gpsdata->skyview[i].used)
+                    {
+
+                        PrintSatelliteDetails(&gpsdata->skyview[i]);
+                    }
+                }
+                else
+                {
+                    PrintSatelliteDetails(&gpsdata->skyview[i]);
+                }
             }
         }
     }
+
+    gps_clear_fix(&gpsdata->fix);
     
+
+    
+}
+
+void FillSatUsedList( bool* usedList, struct gps_data_t* gpsdata)
+{
+
+    for(int i = 0; i < MAXCHANNELS; ++i)
+    {
+        usedList[i] = false;
+        for(int j = 0; j < gpsdata->satellites_used; ++j)
+        {
+            if(gpsdata->skyview[j].used == gpsdata->skyview[i].PRN)
+            {
+                printf("added true to list\n");
+                usedList[i] = true;
+            }
+        }
+    }
+}
+
+void PrintSatelliteDetails(struct satellite_t* skyview)
+{
+    printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02d Used: %c\n",
+    skyview->PRN, skyview->elevation, skyview->azimuth, (int)skyview->ss, ((skyview->used)? 'Y': 'N'));
+
 }
 
 

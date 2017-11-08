@@ -32,6 +32,7 @@ int gps_search_sat(struct gps_data_t* gpsdata)
       } 
       else 
       {
+        if(gpsdata->fix.mode > 0)
         PrintGpsData(gpsdata);
       }
     }
