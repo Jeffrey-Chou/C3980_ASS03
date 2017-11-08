@@ -48,6 +48,13 @@ void PrintGpsData( struct gps_data_t* gpsdata)
     bool usedList[MAXCHANNELS];
 
     FillSatUsedList(usedList, gpsdata);
+
+    for(int i = 0; i < MAXCHANNELS; ++i)
+    {
+        printf("used %d is %d\n", i, usedList[i]);
+    }
+    
+    /*
     time_t t = (time_t) gpsdata->fix.time;
     struct tm* time = localtime(&t);
 
@@ -86,6 +93,7 @@ void PrintGpsData( struct gps_data_t* gpsdata)
             }
         }
     }
+    */
 
     
 }
