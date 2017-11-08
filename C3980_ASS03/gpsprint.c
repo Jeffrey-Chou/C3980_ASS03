@@ -45,10 +45,6 @@
 void PrintGpsData( struct gps_data_t* gpsdata)
 {
     bool hasFix = false;
-    //bool usedList[MAXCHANNELS];
-
-    //FillSatUsedList(usedList, gpsdata);
-    
     
     time_t t = (time_t) gpsdata->fix.time;
     struct tm* time = localtime(&t);
@@ -89,28 +85,29 @@ void PrintGpsData( struct gps_data_t* gpsdata)
     }
 
     gps_clear_fix(&gpsdata->fix);
-    
-
-    
+     
 }
 
-void FillSatUsedList( bool* usedList, struct gps_data_t* gpsdata)
-{
 
-    for(int i = 0; i < MAXCHANNELS; ++i)
-    {
-        usedList[i] = false;
-        for(int j = 0; j < gpsdata->satellites_used; ++j)
-        {
-            if(gpsdata->skyview[j].used == gpsdata->skyview[i].PRN)
-            {
-                printf("added true to list\n");
-                usedList[i] = true;
-            }
-        }
-    }
-}
-
+/*------------------------------------------------------------------------------
+--	Function:		PrintSatelliteDetails
+--
+--	Date:			Nov 2 2017
+--
+--	Designer:		Jeffrey Chou
+--
+--	Programmer:		Jeffrey Chou
+--
+--	Interface:		void PrintSatelliteDetails( struct satellite_t* skyview)
+--						struct satellite_t* skyview: a pointer to the data structure
+--
+--	Returns:		void
+--
+--	Notes:
+--	Prints out the data stored in the satellite_t structure, which is in the 
+--  gps_data_t strucuture. This structure holds all of the data on satellites
+--
+------------------------------------------------------------------------------*/
 void PrintSatelliteDetails(struct satellite_t* skyview)
 {
     printf("PRN: %3d Elevation: %02d Azimuth: %03d SNR: %02d Used: %c\n",
