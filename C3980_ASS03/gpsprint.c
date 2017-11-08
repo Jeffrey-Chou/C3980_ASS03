@@ -57,9 +57,9 @@ void PrintGpsData( struct gps_data_t* gpsdata)
     if(gpsdata->fix.mode >= MODE_2D && isnan(gpsdata->fix.latitude) == 0 && isnan(gpsdata->fix.longitude) == 0 )
     {
         printf(" Latitude: %f%c Longitude: %f%c\n\n", 
-        gpsdata->fix.latitude, (gpsdata->fix.latitude < 0)? 'S': 'N',
-        gpsdata->fix.longitude, (gpsdata->fix.longitude < 0)? 'W': 'E');
-        hasFix = false;
+        abs(gpsdata->fix.latitude), (gpsdata->fix.latitude < 0)? 'S': 'N',
+        abs(gpsdata->fix.longitude), (gpsdata->fix.longitude < 0)? 'W': 'E');
+        hasFix = true;
     }
     else
     {
